@@ -116,7 +116,5 @@ class ViewController: UIViewController {
             topImageContainerView.rightAnchor.constraint(equalTo: view.rightAnchor),
             topImageContainerView.topAnchor.constraint(equalTo: view.topAnchor)
         ])
-        
-        
     }
 }
