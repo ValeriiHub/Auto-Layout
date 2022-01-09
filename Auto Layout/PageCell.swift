@@ -9,7 +9,25 @@ import UIKit
 
 class PageCell: UICollectionViewCell {
     
-    let bearImageView: UIImageView = {
+    var page: Page? {
+        didSet {
+            guard let unwrappedPage = page else { return }
+            
+            bearImageView.image = UIImage(named: unwrappedPage.imageName)
+            
+            let attributedText = NSMutableAttributedString(string: unwrappedPage.headerText,
+                                                           attributes: [.font : UIFont.boldSystemFont(ofSize: 18)])
+            
+            attributedText.append(NSAttributedString(string: "\n\n\n\(unwrappedPage.bodyText)",
+                                                     attributes: [.font : UIFont.boldSystemFont(ofSize: 13),
+                                                                  .foregroundColor : UIColor.gray]))
+            
+            descriptionTextView.attributedText = attributedText
+            descriptionTextView.textAlignment = .center
+        }
+    }
+    
+    private let bearImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "bear_first"))
         //this enables autolayout for our imageView
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -17,7 +35,7 @@ class PageCell: UICollectionViewCell {
         return imageView
     }()
     
-    let descriptionTextView: UITextView = {
+    private let descriptionTextView: UITextView = {
         let textView = UITextView()
         
         let attributedText = NSMutableAttributedString(string: "Join us today in our fun and games!",
